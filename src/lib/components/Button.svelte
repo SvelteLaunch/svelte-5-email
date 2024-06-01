@@ -37,7 +37,7 @@
 			display: 'inline-block',
 			lineHeight: '120%',
 			textDecoration: 'none',
-			textTransform: 'none' as const,
+			textTransform: 'none',
 			msoPaddingAlt: '0px',
 			msoTextRaise: pxToPt(paddingY.toString())
 		};
