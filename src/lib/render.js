@@ -8,7 +8,7 @@ export const render = ({
 	options
 }) => {
 	const { html } = mount(template, {props: props})
-		template.render(props);
+		// template.render(props);
 	if (options?.plainText) {
 		return renderAsPlainText(html);
 	}
