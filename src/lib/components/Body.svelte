@@ -1,6 +1,5 @@
 <script>
 	import { styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
 
 	export let style = {};
 	let className = undefined;
