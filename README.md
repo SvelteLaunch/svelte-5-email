@@ -1,58 +1,129 @@
-# create-svelte
+![svelte-email-banner](https://user-images.githubusercontent.com/59960385/216772883-6cc40ff9-ef6e-4269-bed3-17c1023bbaf6.png)
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+<div align="center"><strong>Svelte 5 Email</strong></div>
+<div align="center">Designing emails has never been easier.</div>
+<br />
+<div align="center">
+<a href="https://svelte-email.vercel.app/">Documentation</a> 
+<span> · </span>
+<a href="https://github.com/carstenlebek/svelte-email">GitHub</a> 
+</div>
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+# Introduction
+This is an updated version of svelte-email to work w/ Svelte 5 and written in vanilla javascript.
 
-## Creating a project
+After seeing [react-email](https://github.com/resendlabs/react-email) I have decided to create a similar library for Svelte. `svelte-email` enables you to write and design email templates with svelte and render them to HTML or plain text.
 
-If you're seeing this, you've probably already done this step. Congrats!
+# Installation
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Install the package to your existing SvelteKit project:
 
-# create a new project in my-app
-npm create svelte@latest my-app
+```bash title="npm"
+npm install svelte-email
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```bash title="pnpm"
+pnpm install svelte-email
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+# Getting started
 
-## Building
+## 1. Create an email using Svelte
 
-To build your library:
+`src/$lib/emails/Hello.svelte`
 
-```bash
-npm run package
+```html
+<script>
+	import { Button, Hr, Html, Text } from 'svelte-email';
+
+	export let name = 'World';
+</script>
+
+<Html lang="en">
+	<Text>
+		Hello, {name}!
+	</Text>
+	<Hr />
+	<Button href="https://svelte.dev">Visit Svelte</Button>
+</Html>
 ```
 
-To create a production version of your showcase app:
+## 2. Send email
 
-```bash
-npm run build
+This example uses [Nodemailer](https://nodemailer.com/about/) to send the email. You can use any other email service provider.
+
+`src/routes/emails/hello/+server.js`
+
+```js
+import { render } from 'svelte-email';
+import Hello from '$lib/emails/Hello.svelte';
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+	host: 'smtp.ethereal.email',
+	port: 587,
+	secure: false,
+	auth: {
+		user: 'my_user',
+		pass: 'my_password'
+	}
+});
+
+const emailHtml = render({
+	template: Hello,
+	props: {
+		name: 'Svelte'
+	}
+});
+
+const options = {
+	from: 'you@example.com',
+	to: 'user@gmail.com',
+	subject: 'hello world',
+	html: emailHtml
+};
+
+transporter.sendMail(options);
 ```
 
-You can preview the production build with `npm run preview`.
+# Documentation
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+For more information, please visit the [documentation](https://svelte-email.vercel.app/).
 
-## Publishing
+# Components
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
 
-To publish your library to [npm](https://www.npmjs.com):
+- [HTML](https://svelte-email.vercel.app/docs/components/HTML)
+- [Head](https://svelte-email.vercel.app/docs/components/head)
+- [Heading](https://svelte-email.vercel.app/docs/components/heading)
+- [Button](https://svelte-email.vercel.app/docs/components/button)
+- [Link](https://svelte-email.vercel.app/docs/components/link)
+- [Image](https://svelte-email.vercel.app/docs/components/image)
+- [Divider](https://svelte-email.vercel.app/docs/components/hr)
+- [Paragraph](https://svelte-email.vercel.app/docs/components/paragraph)
+- [Container](https://svelte-email.vercel.app/docs/components/container)
+- [Preview](https://svelte-email.vercel.app/docs/components/preview)
+- [Body](https://svelte-email.vercel.app/docs/components/body)
+- [Column](https://svelte-email.vercel.app/docs/components/column)
+- [Section](https://svelte-email.vercel.app/docs/components/section)
 
-```bash
-npm publish
-```
+# Integrations
+
+Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
+
+- [Nodemailer](https://github.com/resendlabs/react-email/tree/main/examples/nodemailer)
+- [SendGrid](https://github.com/resendlabs/react-email/tree/main/examples/sendgrid)
+- [Postmark](https://github.com/resendlabs/react-email/tree/main/examples/postmark)
+- [AWS SES](https://github.com/resendlabs/react-email/tree/main/examples/aws-ses)
+
+## Author
+- Travis Mathis ([@travisdmathis](https://github.com/travisdmathis))
+
+## Author of original Svelte Project
+- Carsten Lebek ([@carstenlebek](https://twitter.com/carstenlebek1))
+
+### Authors of the original project [react-email](https://github.com/resendlabs/react-email)
+
+- Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
+- Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
