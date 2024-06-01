@@ -1,14 +1,14 @@
 import { convert } from 'html-to-text';
 import pretty from 'pretty';
-// import { render } from 'svelte';
+import { render } from 'svelte/server';
 
 export const htmlRender = ({
 	template,
 	props,
 	options
 }) => {
-	const { html } = template.render(props);
-		
+	const { html } = render(template, {props: props})
+		// template.render(props);
 	if (options?.plainText) {
 		return renderAsPlainText(html);
 	}
