@@ -1,6 +1,5 @@
 <script>
 	import { pxToPt, styleToString } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
 
 	export let href = '';
 	export let style = {};

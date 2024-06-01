@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 
 	import { styleToString, withMargin } from '$lib/utils';
 

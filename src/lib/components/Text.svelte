@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 
 	import { styleToString } from '$lib/utils';
 
