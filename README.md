@@ -19,11 +19,11 @@ After seeing [react-email](https://github.com/resendlabs/react-email) I have dec
 Install the package to your existing SvelteKit project:
 
 ```bash title="npm"
-npm install svelte-email
+npm install @sveltelaunch/svelte-5-email
 ```
 
 ```bash title="pnpm"
-pnpm install svelte-email
+pnpm install @sveltelaunch/svelte-5-email
 ```
 
 # Getting started
